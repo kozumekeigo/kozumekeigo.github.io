@@ -1,1 +1,13 @@
-table,tr,td,th{border:1px solid #333;}
+table,tr,td,th{
+  border:1px
+  solid #333;
+}
+table,tr,td,th{
+  color: red;
+}
+th{
+    width:250px;
+}
+body{
+  background-color: #6bffff;
+}
