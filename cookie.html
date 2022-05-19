@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <style media="screen">
+      body{background-image: url("haikei.jpg");}
+      img{width:200px;}
+    </style>
+  </head>
+  <body>
+    <script type="text/javascript">
+      /*ｃｏｏｋｉｅのカウント*/
+      cookie_count = 0;
+      function cookieClick() {
+        var count_text = document.getElementById('cookie_count')
+        cookie_count++;
+        count_text.textContent = cookie_count;
+      }
+
+    </script>
+    <p>
+       <span id="cookie_count"></span> cookies
+   </p>
+   <img onclick="cookieClick()" src="cookie.png" alt="">
+
+  </body>
+</html>
