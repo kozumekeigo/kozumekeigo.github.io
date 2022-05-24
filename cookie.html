@@ -4,25 +4,71 @@
     <meta charset="utf-8">
     <title></title>
     <style media="screen">
-      body{background-image: url("haikei.jpg");}
-      img{width:200px;}
+      body{background-image: url("haikei6.jpg");}
+      img{width:300px;}
+      body li,p{
+      color: ;
+      }
+
+      li:hover{
+        color: darkgray;
+      }
     </style>
   </head>
   <body>
     <script type="text/javascript">
       /*ｃｏｏｋｉｅのカウント*/
+      localStorage.setItem('c_count', 0);
+      cookie_count = parseInt(localStorage.getItem('c_count', 0));
       cookie_count = 0;
-      function cookieClick() {
+      function cookieClick(num) {
         var count_text = document.getElementById('cookie_count')
-        cookie_count++;
+        cookie_count = cookie_count + num;
         count_text.textContent = cookie_count;
+      }
+
+      function cursor() {
+        if (cookie_count >= 15) {
+          cookie_count -= 15;
+          setInterval(cookieClick,10000,1);
+        }
+      }
+      function junta() {
+        if(cookie_count >= 100){
+          cookie_count -= 100;
+          setInterval(cookieClick,1000,1);
+        }
+      }
+      function farm() {
+        if(cookie_count >=1100){
+          cookie_count -= 1100;
+          setInterval(cookieClick,1000,8);
+        }
+      }
+      function mine() {
+        if (cookie_count >= 12000) {
+          cookie_count -= 12000;
+          setInterval(cookieClick,1000,47);
+        }
+      }
+      function factory() {
+        if (cookie_count >= 130000) {
+          cookie_count -= 130000;
+          setInterval(cookieClick,1000,260);
+        }
       }
 
     </script>
     <p>
        <span id="cookie_count"></span> cookies
    </p>
-   <img onclick="cookieClick()" src="cookie.png" alt="">
-
+   <img onclick="cookieClick(1)" src="cookie.png" alt="">
+   <ul>
+     <li onclick="cursor()">カーソル</li>
+     <li onclick="junta()">じゅんた</li>
+     <li onclick="farm()">ファーム</li>
+     <li onclick="mine()">マイン</li>
+     <li onclick="factory()">ファクトリー</li>
+   </ul>
   </body>
 </html>
