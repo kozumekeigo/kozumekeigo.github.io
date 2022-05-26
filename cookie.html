@@ -30,11 +30,14 @@
       function save_action() {
         localStorage.setItem('ls_count',cookie_count);
       }
+      setInterval(screen_update,100)
+      function screen_update() {
+        var count_text = document.getElementById('cookie_count');
+        count_text.textContent = cookie_count;
+      }
 
       function cookieClick(num) {
-        var count_text = document.getElementById('cookie_count');
         cookie_count = cookie_count + num;
-        count_text.textContent = cookie_count;
       }
 
       function cursor() {
