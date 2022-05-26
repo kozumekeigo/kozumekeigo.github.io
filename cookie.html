@@ -12,17 +12,27 @@
 
       li:hover{
         color: darkgray;
+        transition: 0.1s;
       }
     </style>
   </head>
   <body>
     <script type="text/javascript">
       /*ｃｏｏｋｉｅのカウント*/
-      localStorage.setItem('c_count', 0);
-      cookie_count = parseInt(localStorage.getItem('c_count', 0));
-      cookie_count = 0;
+
+      let ls_count = localStorage.getItem('ls_count');
+      if(ls_count){
+        cookie_count = parseInt(ls_count);
+      }else{
+        cookie_count = 0;
+      }
+      setInterval(save_action,1000);
+      function save_action() {
+        localStorage.setItem('ls_count',cookie_count);
+      }
+
       function cookieClick(num) {
-        var count_text = document.getElementById('cookie_count')
+        var count_text = document.getElementById('cookie_count');
         cookie_count = cookie_count + num;
         count_text.textContent = cookie_count;
       }
