@@ -1,266 +1,207 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-  <head>
-    <link
-   rel="stylesheet"
-   href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
- />
-    <meta charset="utf-8">
-    <title></title>
-    <style media="screen">
-      body{margin:0;background-image: url("haikei6.jpg");}
-      img{width:150px;}
+<head>
+  <link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+  />
+  <meta charset="utf-8">
+  <title></title>
+  <style media="screen">
+  body{margin:0;background-image: url("haikei6.jpg");}
+  img{width:150px;}
 
 
 
-      /*img{transition: transform.3s ease}
-      img:hover{transition: scale(1.2);}*/
+  /*img{transition: transform.3s ease}
+  img:hover{transition: scale(1.2);}*/
 
-      body span,li,p{
-      color: #004d25;
-      }
-      body buy{
-        color: #fff799;
-      }
+  body span,li,p{
+    color: #004d25;
+  }
+  buy{
+    color: #fff799;
+  }
+  div {
+    color: #417038;
+  }
 
-      li:hover{
-        color: #3cb37a;
-        transition: 0.1s;
-      }
+  li:hover{
+    color: #3cb37a;
+    transition: 0.1s;
+  }
 
-      span:hover{
-        color: #3cb37a;
-        transition: 0.1s;
-      }
+  span:hover{
+    color: #3cb37a;
+    transition: 0.1s;
+  }
 
-      buy:hover{
-        color: #3cb37a;
-        transition: 0.1s;
-      }
+  buy:hover{
+    color: #3cb37a;
+    transition: 0.1s;
+  }
 
-      .container{display:flex;
-                  height:100vh;}
-      .item1{ flex-grow:2;
-            background-color: rgba(240,246,218,0.8);}
+  .container{display:flex;
+    height:100vh;}
+    .item1{ flex-grow:2;
+      background-color: rgba(240,246,218,0.8);}
       .item2{ flex-grow:4;
-            background-color: rgba(219,235,196,0.7);}
-      .item3{ flex-grow:3;
-            background-color: rgba(97,142,52,0.6);}
+        background-color: rgba(219,235,196,0.7);}
+        .item3{ flex-grow:3;
+          background-color: rgba(97,142,52,0.6);}
 
-      #buildings_sell{
-        display: none;
-      }
-
-
-
-    </style>
-  </head>
-  <body>
-  <script>
-      /*インターバルIDの格納先*/
-      let event_ids = [];
-      /*ｃｏｏｋｉｅのカウント*/
-
-      let ls_count = localStorage.getItem('ls_count');
-      if(ls_count){
-        cookie_count = parseInt(ls_count);
-      }else{
-        cookie_count = 0;
-      }
-      setInterval(save_action,1000);
-      function save_action() {
-        localStorage.setItem('ls_count',cookie_count);
-      }
-
-      class Building{
-        //初期値の定義
-        constructor(time,num,cost){
-          this.event_ids = [];
-          this.interval_time = time;
-          this.add_num = num;
-          this.cost = cost;
-        }
-        //カウントアップのメソッド
-        count_up(num){
-          cookie_count += num
-        }
-        //購入した場合のメソッド
-        buy(){
-          let self = this;
-          if(cookie_count>=this.cost){
-            cookie_count -= this.cost;
+          #buildings_sell{
+            display: none;
           }
-          let return_id = setInterval(function(){
-            self.count_up(self.add_num);
-          },1000);
-          this.event_ids.push(return_id);
-        }
-        //売却のメソッド
-        sell(){
-          let return_id = this.event_ids.pop();
-          cookie_count += this.cost;
-          clearInterval(return_id);
-        }
-      }
-
-        //class作成
-        let cursor = new Building(10000,1,15);
-        let junta = new Building(1000,1,100);
-        let farm = new Building(1000,8,1100);
-        let mine = new Building(1000,47,12000);
-        let factory = new Building(1000,260,130000);
 
 
-      su_event_id = setInterval(screen_update,100)
 
-      function screen_update() {
-        var count_text = document.getElementById('cookie_count');
-        count_text.textContent = cookie_count;
-      }
+          </style>
+        </head>
+        <body>
+          <script>
+          /*インターバルIDの格納先*/
+          let event_ids = [];
+          /*ｃｏｏｋｉｅのカウント*/
 
-      function event_clear() {
-        clearInterval(su_event_id);
-
-      }
-
-      function cookieClick(num) {
-        cookie_count = cookie_count + num;
-        var cookie_img=document.getElementById('cookie_img');
-        cookie_img.classList.remove('animate__animated','animate__shakeX');
-        void cookie_img.offsetWidth;
-        cookie_img.classList.add('animate__animated','animate__shakeX');
-      }
-    /*購入*/
-      /*function cursor() {
-        if (cookie_count >= 15) {
-          cookie_count -= 15;
-          let r_id = setInterval(cookieClick,10000,1)
-          event_ids.push(r_id);
-        }
-      }
-
-      function junta() {
-        if(cookie_count >= 100){
-          cookie_count -= 100;
-          let r_id = setInterval(cookieClick,1000,1);
-          event_ids.push(r_id);
-        }
-      }
-      function farm() {
-        if(cookie_count >=1100){
-          cookie_count -= 1100;
-          let r_id = setInterval(cookieClick,1000,8);
-          event_ids.push(r_id);
-        }
-      }
-      function mine() {
-        if (cookie_count >= 12000) {
-          cookie_count -= 12000;
-          let r_id = setInterval(cookieClick,1000,47);
-          event_ids.push(r_id);
-        }
-      }
-      function factory() {
-        if (cookie_count >= 130000) {
-          cookie_count -= 130000;
-          let r_id = setInterval(cookieClick,1000,260);
-          event_ids.push(r_id);
-        }
-      }*/
-
-      /*売却*/
-      /*function sell_cursor() {
-        if(event_ids.length > 0){
-        let r_id = event_ids.pop();
-        clearInterval(r_id);
-        }
-      }
-      function sell_junta() {
-        if(event_ids.length > 0){
-        let r_id = event_ids.pop();
-        clearInterval(r_id);
-      }
-    }
-      function sell_farm() {
-        if(event_ids.length > 0){
-        let r_id = event_ids.pop();
-        clearInterval(r_id);
-      }
-    }
-      function sell_mine() {
-        if(event_ids.length > 0){
-        let r_id = event_ids.pop();
-        clearInterval(r_id);
-      }
-    }
-
-    function sell_factory() {
-        if(event_ids.length > 0){
-        let r_id = event_ids.pop();
-        clearInterval(r_id);
-      }
-    }*/
-
-      /*施設切り替え処理*/
-        function buildings_switch(){
-          let buy_ele = document.getElementById('buildings_buy');
-          let sell_ele = document.getElementById('buildings_sell');
-
-          if (buy_ele.style.display != "none"){
-            buy_ele.style.display = "none";
-            sell_ele.style.display = "block";
+          let ls_count = localStorage.getItem('ls_count');
+          if(ls_count){
+            cookie_count = parseInt(ls_count);
           }else{
-            buy_ele.style.display = "block";
-            sell_ele.style.display = "none";
+            cookie_count = 0;
           }
-        }
+          setInterval(save_action,1000);
+          function save_action() {
+            localStorage.setItem('ls_count',cookie_count);
+          }
 
-    </script>
+          class Building{
+            //初期値の定義
+            constructor(time,num,cost){
+              this.event_ids = [];
+              this.interval_time = time;
+              this.add_num = num;
+              this.cost = cost;
+            }
+            get count(){
+              return this.event_ids.length;
+            }
+            //カウントアップのメソッド
+            count_up(num){
+              cookie_count += num
+            }
+            //購入した場合のメソッド
+            buy(){
+              let self = this;
+              if(cookie_count>=this.cost){
+                cookie_count -= this.cost;
+              }
+              let return_id = setInterval(function(){
+                self.count_up(self.add_num);
+              },this.interval_time);
+              this.event_ids.push(return_id);
+            }
+            //売却のメソッド
+            sell(){
+              let return_id = this.event_ids.pop();
+              if(return_id > 0){
+                cookie_count += this.cost;
+                clearInterval(return_id);
+              }
+            }
+          }
+
+          //class作成
+          let cursor = new Building(10000,1,15);
+          let junta = new Building(1000,1,100);
+          let farm = new Building(1000,8,1100);
+          let mine = new Building(1000,47,12000);
+          let factory = new Building(1000,260,130000);
 
 
-<div class="container">
-  <div class="item1">
+          su_event_id = setInterval(screen_update,100)
 
-  <button id="screen_switch" onclick="event_clear()" type="button" name="button">更新切り替え</button>
-    <p>
-       <span id="cookie_count"></span> cookies
-   </p>
-   <img id="cookie_img"onclick="cookieClick(1)" src="cookie.png" alt="">
-  </div>
+          function screen_update() {
+            var count_text = document.getElementById('cookie_count');
+            count_text.textContent = cookie_count;
+          }
 
-  <div class="item2">
-      <p class="animate__animated animate__bounce">製作途中</p>
-    </div>
+          function event_clear() {
+            clearInterval(su_event_id);
 
-    <div class="item3">
+          }
+
+          function cookieClick(num) {
+            cookie_count = cookie_count + num;
+            var cookie_img=document.getElementById('cookie_img');
+            cookie_img.classList.remove('animate__animated','animate__shakeX');
+            void cookie_img.offsetWidth;
+            cookie_img.classList.add('animate__animated','animate__shakeX');
+          }
+
+          /*施設切り替え処理*/
+          function buildings_switch(){
+            let buy_ele = document.getElementById('buildings_buy');
+            let sell_ele = document.getElementById('buildings_sell');
+
+            if (buy_ele.style.display != "none"){
+              buy_ele.style.display = "none";
+              sell_ele.style.display = "block";
+            }else{
+              buy_ele.style.display = "block";
+              sell_ele.style.display = "none";
+            }
+          }
+
+        </script>
+
+
+        <div class="container">
+          <div class="item1">
+
+            <button id="screen_switch" onclick="event_clear()" type="button" name="button">更新切り替え</button>
+            <p>
+              <span id="cookie_count"></span> cookies
+            </p>
+            <img id="cookie_img"onclick="cookieClick(1)" src="cookie.png" alt="">
+          </div>
+
+          <div class="item2">
+            <p class="animate__animated animate__bounce">製作途中</p>
+          </div>
+
+          <div class="item3">
 
 
 
-      <div id = "buildings_buy">
+            <div id = "buildings_buy">
 
-      <button onclick="buildings_switch()">購入</button>
+              <button onclick="buildings_switch()">売却へ</button>
+              <div style="text-Align: center">購入</div>
 
-      <ul>
-        <li onclick="cursor.buy()"><buy>カーソル</buy></li>
-        <li onclick="junta.buy()"><buy>じゅんた</buy></li>
-        <li onclick="farm.buy()"><buy>ファーム</buy></li>
-        <li onclick="mine.buy()"><buy>マイン</buy></li>
-        <li onclick="factory.buy()"><buy>ファクトリー</buy></li>
-      </ul>
-      </div>
+              <ul>
+                <li onclick="cursor.buy()"><buy>カーソル</buy></li>
+                <li onclick="junta.buy()"><buy>じゅんた</buy></li>
+                <li onclick="farm.buy()"><buy>ファーム</buy></li>
+                <li onclick="mine.buy()"><buy>マイン</buy></li>
+                <li onclick="factory.buy()"><buy>ファクトリー</buy></li>
+              </ul>
+            </div>
 
-      <div id = "buildings_sell">
-      <button onclick="buildings_switch()">売却</button>
-      <ul>
-        <li onclick="cursor.sell()">カーソル</li>
-        <li onclick="junta.sell()">じゅんた</li>
-        <li onclick="farm.sell()">ファーム</li>
-        <li onclick="mine.sell()">マイン</li>
-        <li onclick="factory.sell()">ファクトリー</li>
-      </ul>
+            <div id = "buildings_sell">
+              <button onclick="buildings_switch()">購入へ</button>
+              <div style="text-Align: center">売却</div>
+
+              <ul>
+                <li onclick="cursor.sell()">カーソル</li>
+                <li onclick="junta.sell()">じゅんた</li>
+                <li onclick="farm.sell()">ファーム</li>
+                <li onclick="mine.sell()">マイン</li>
+                <li onclick="factory.sell()">ファクトリー</li>
+              </ul>
+            </div>
+          </div>
         </div>
-    </div>
-  </div>
 
-  </body>
-</html>
+      </body>
+      </html>
