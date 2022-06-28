@@ -25,6 +25,9 @@
   div {
     color: #417038;
   }
+  div1{
+    color: #00008b;
+  }
 
   li:hover{
     color: #3cb37a;
@@ -39,6 +42,10 @@
   buy:hover{
     color: #3cb37a;
     transition: 0.1s;
+  }
+
+  hr:{
+    color:
   }
 
   .container{display:flex;
@@ -177,7 +184,9 @@
             <div id = "buildings_buy">
 
               <button onclick="buildings_switch()">売却へ</button>
+              <hr>
               <div style="text-Align: center">購入</div>
+              <hr>
 
               <ul>
                 <li onclick="cursor.buy()"><buy>カーソル</buy></li>
@@ -190,7 +199,9 @@
 
             <div id = "buildings_sell">
               <button onclick="buildings_switch()">購入へ</button>
+              <hr>
               <div style="text-Align: center">売却</div>
+              <hr>
 
               <ul>
                 <li onclick="cursor.sell()">カーソル</li>
