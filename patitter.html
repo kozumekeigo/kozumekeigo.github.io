@@ -13,73 +13,79 @@
   <body>
     <div class="container">
       <div id="timeline">
+
         <div class="tweet">
-          <div class="icon">
-            <img src="12-01-190513-salmon.png" alt="">
+          <input type="text" id="input_text" placeholder="ここに入力してね！" name="" value=""/>
+          <button onclick="form_tweet()" type="submit"　>送信</button>
 
-          </div>
-          <div class="tweet_box">
-            <div class="username">
-              ユーザ名
-              <span class="name">@junmai</span>
-              <span class="date">2022/7/5</span>
-            </div>
-            <div class="text">
-              ツイートを表示
-            </div>
-            <div class="action">
-              <span class="icon_chat">0</span>
-              <span class="icon_fav">0</span>
-              <span class="icon_res">0</span>
-              <span class="icon_share">0</span>
-
-
-            </div>
-
-          </div>
         </div>
-
-
       </div>
     </div>
     <script type="text/javascript">
 
-    let timeline = document.getElementById('timeline');
+  /*  let timeline = document.getElementById('timeline');
     let tweets = [{"text":"こんにちは","username":"kozume"},
                   {"text":"じゅんまい","username":"java"},
                   {"text":"すし","username":"work"},
                   {"text":"お前ごときが調子に乗るな","username":"junta"},
-                  {"text":"ぴえん","username":"junmai"}];
-      
-      tweets.forEach((tweet, i) => {
-        let template = `<div class="tweet">
-                  <div class="icon">
-                    <img src="12-01-190513-salmon.png" alt="">
+                  {"text":"ぴえん","username":"junmai"}];*/
 
-                  </div>
-                  <div class="tweet_box">
-                    <div class="username">
-                      ${tweet.username}
-                      <span class="name">@junmai</span>
-                      <span class="date">2022/7/5</span>
+            viewTweet();
+
+            async function viewTweet() {
+              let tweets = await getjson();
+              appendTweet(tweets);
+            }
+
+
+      async function getjson() {
+        let response = await(await fetch("http://192.168.0.90/timeline.json")).json();
+        return response;
+      }
+
+
+      appendTweet(tweets);
+
+      function appendTweet(tweets) {
+        tweets.forEach((tweet, i) => {
+          let template = `<div class="tweet">
+                    <div class="icon">
+                      <img src="12-01-190513-salmon.png" alt="">
+
                     </div>
-                    <div class="text">
-                      ${tweet.text}
+                    <div class="tweet_box">
+                      <div class="username">
+                        ${tweet.username}
+                        <span class="name">@junmai</span>
+                        <span class="date">2022/7/5</span>
+                      </div>
+                      <div class="text">
+                        ${tweet.text}
+                      </div>
+                      <div class="action">
+                        <span class="icon_chat">0</span>
+                        <span class="icon_fav">0</span>
+                        <span class="icon_res">0</span>
+                        <span class="icon_share">0</span>
+
+
+                      </div>
+
                     </div>
-                    <div class="action">
-                      <span class="icon_chat">0</span>
-                      <span class="icon_fav">0</span>
-                      <span class="icon_res">0</span>
-                      <span class="icon_share">0</span>
+                  </div>`
 
+          timeline.innerHTML = timeline.innerHTML + template
+        });
+      }
 
-                    </div>
+      function post_tweets(text,name,uesrname) {
+        let send_data ="?name" + name + "&username" + username + "&text" + text;
+        let res_data = await (await fetch("./tweet.rd" + send_data)).text();
+        if(res_data != "OK"){
+          alert(res_data);
+        }
+      }
 
-                  </div>
-                </div>`
-
-        timeline.innerHTML = timeline.innerHTML + template
-      });
 
     </script>
   </body>
