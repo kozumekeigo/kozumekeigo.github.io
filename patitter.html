@@ -29,7 +29,7 @@
       let input_text = document.getElementById('input_text');
       /*let input_name = docu*/
       if(input_text.value != ""){
-        post_tweet(input_text.value,"とぅいったー","tweet");
+        post_tweet(input_text.value,"絶望の星","奇しき赫耀のじゅんまい");
         input_text.value = "";
       }
 
@@ -52,11 +52,12 @@
                   {"text":"すし","username":"work"},
                   {"text":"お前ごときが調子に乗るな","username":"junta"},
                   {"text":"ぴえん","username":"junmai"}];*/
-
+      viewTweet();
 
       async function viewTweet() {
           let tweets = await getjson();
           appendTweet(tweets);
+          setTimeout(viewTweet,15000);
       }
 
 
@@ -65,9 +66,17 @@
         return response;
       }
 
+      //async function updataTweet() { ---------封印----------- }
+
 
 
       function appendTweet(tweets) {
+
+        let old_tweets = document.getElementsByClassName("tweet");
+        while(old_tweets.letgth>2){
+          old_tweets.item(1).remove();
+        }
+
         tweets.forEach((tweet, i) => {
           let template = `<div class="tweet">
                     <div class="icon">
@@ -76,12 +85,12 @@
                     </div>
                     <div class="tweet_box">
                       <div class="username">
-                        ${tweet.username}
-                        <span class="name">@junmai</span>
+                        ${escapeText(tweet.username)}
+                        <span class="name">${escapeText(tweet.name)}</span>
                         <span class="date">2022/7/5</span>
                       </div>
                       <div class="text">
-                        ${tweet.text}
+                        ${escapeText(tweet.text)}
                       </div>
                       <div class="action">
                         <span class="icon_chat">0</span>
@@ -99,7 +108,14 @@
         });
       }
 
-        viewTweet();
+
+      function escapeText(text){
+        let element = document.createElement("div");
+        element.textContent = text;
+        return element.innerHTML.replace(/\n/g,"<br>");
+      }
+
+
     </script>
   </body>
 </html>
